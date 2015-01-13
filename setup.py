@@ -21,7 +21,7 @@ test_requirements = [
 
 setup(
     name='python-updict',
-    version='0.1.0',
+    version='0.1.2',
     description='Update Python dictionaries',
     long_description=readme + '\n\n' + history,
     author='Andrew Ingram',

@@ -54,6 +54,12 @@ class TestUpdict(unittest.TestCase):
         with self.assertRaises(UpdictException):
             updict(7, {'$merge': {'a': 'b'}})
 
+    def test_set(self):
+        self.assertEquals(
+            updict({'a': 'b'}, {'$set': {'c': 'd'}}),
+            {'c': 'd'}
+        )
+
     def test_deep_updates(self):
         self.assertEquals(
             updict({'a': 'b', 'c': {'d': 'e'}}, {'c': {'d': {'$set': 'f'}}}),

@@ -51,7 +51,7 @@ def invariantArrayCase(value, spec, command):
 def updict(value, spec):
     if not isinstance(spec, dict):
         raise UpdictException(
-            'updict(): You provided a key path to updict() that did not contain one of {}. Did you forget to include {{}: ...}?'.format(
+            'updict(): You provided a key path to updict() that did not contain one of {}. Did you forget to include {{{}: ...}}?'.format(
                 ', '.join(ALL_COMMANDS),
                 COMMAND_SET,
             )
@@ -70,14 +70,14 @@ def updict(value, spec):
 
     if COMMAND_MERGE in spec:
         merge_obj = spec[COMMAND_MERGE]
-        if not (merge_obj and isinstance(merge_obj, dict)):
+        if not (merge_obj is not None and isinstance(merge_obj, dict)):
             raise UpdictException(
                 'updict(): {} expects a spec of type \'dict\'; got {}'.format(
                     COMMAND_MERGE,
                     merge_obj
                 )
             )
-        if not (next_value and isinstance(next_value, dict)):
+        if not (next_value is not None and isinstance(next_value, dict)):
             raise UpdictException(
                 'updict(): {} expects a target of type \'dict\'; got {}'.format(
                     COMMAND_MERGE,
@@ -122,6 +122,6 @@ def updict(value, spec):
 
     for k in spec:
         if not (k in ALL_COMMANDS and ALL_COMMANDS_DICT[k]):
-            next_value[k] = updict(value[k], spec[k])
+            next_value[k] = updict(value.get(k, {}), spec[k])
 
     return next_value
