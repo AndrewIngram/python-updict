@@ -1,0 +1,2 @@
+class UpdictException(Exception):
+    pass
